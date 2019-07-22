@@ -99,20 +99,17 @@ app.get('/remind', (req, res) => {
 
 
 
-// code for accepting  verify user and execute slash commands
+// code to verify user and execute slash commands.
 app.post('/email', (req, res) => {
   console.log("body..................................................", req.body);
  
-  if (req.body.user_id === 'ULBTW2K1P') {
+  if (req.body.user_id === 'useridhere') {
     mail.sendmail();
     res.send({ text: 'Thank you for the report request, the report has been sent to the Email configured' });
   } else { 
     res.send({ text: 'Your user id does not have access to avail this fucntion, please contact your Slack admin to enable this feature' });
     res.sendStatus(500); }
 });
-
-
-
 
 
 
