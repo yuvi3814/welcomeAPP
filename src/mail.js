@@ -14,17 +14,21 @@ const nodemailer = require('nodemailer');
     
     
     //step 2
+
    let mailoptions = {
             from: 'ykundasi@gmail.com',
             to: 'ykundasi@empyra.com',
             subject: 'updated  list from welcome APP',
             text: 'message from ykundasi@gmail.com',
             attachements: [
-                { path:'C:\\Users\\Yuvraj K\\Desktop\\YuviDocs\\NewAppSlack\\Slack_welcomeAPP\\users.json'}
+                {   // file on disk as an attachment
+                    filename: 'users.json',
+                    path: './/users.json' // stream this file
+                },
+                
             ]
            
     }; 
-    
     //step 3
     transpoter.sendMail(mailoptions,function(err,date) {
             if (err) {

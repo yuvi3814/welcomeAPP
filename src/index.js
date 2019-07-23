@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
  * It handles `team_join` event callbacks.
  */
 app.post('/events', (req, res) => {
-
+console.log('req.body');
   switch (req.body.type) {
     case 'url_verification': {
       // verify Events API endpoint by returning challenge if present
@@ -84,36 +84,42 @@ app.post('/interactive', (req, res) => {
 
 
 //new code for reminding when report slash command is sent from slack
-app.get('/remind', (req, res) => {
+app.get('/remind01', (req, res) => {
+  console.log('remind..............', req.body);
   res.send('Reminder sent for users to accept Terms and conditions');
   onboard.remind();
   
 });
 
-//code for scehduling remind based on cronscheduler, configured time 2 min
+//code for scehduling remind message based on cronscheduler, configured time 2 min
 //cron.schedule('*/2 * * * *', () => 
 //{
-//console.log('running every 2 minute');
 //onboard.remind1();
 //});
 
+//test code for changing Terms and conditions message from slack commands:
+app.post('/updateTOC', (req, res) => {
+  console.log("UpdateTOC..................................................", req.body);
+  const text = req.body.text;
+  const channel = req.body.user_id;
+  res.send({ text: 'the TOC will be updated shortly' });
+  onboard.callnewmsg(text,channel);
+     
+});
 
 
-// code to verify user and execute slash commands.
+
+// code for accepting  verify user and execute slash commands
 app.post('/email', (req, res) => {
-  console.log("body..................................................", req.body);
+  console.log("email..................................................", req.body);
  
-  if (req.body.user_id === 'useridhere') {
+  if (req.body.user_id === 'ULBTW2K1P') {
     mail.sendmail();
     res.send({ text: 'Thank you for the report request, the report has been sent to the Email configured' });
   } else { 
     res.send({ text: 'Your user id does not have access to avail this fucntion, please contact your Slack admin to enable this feature' });
     res.sendStatus(500); }
 });
-
-
-
-
 
 
 

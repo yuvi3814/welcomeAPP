@@ -38,6 +38,27 @@ const message = {
 };
 
 
+
+//new code for updating toc -YK
+function callnewmsg(text,channel) {
+  message01.text = text;
+  message01.channel = channel;
+    axios.post(`${apiUrl}/chat.postMessage`, qs.stringify(message01))
+      .then((result => {
+        console.log(result.data);
+    }))
+  };
+
+const message01 = {
+  token: process.env.SLACK_ACCESS_TOKEN,
+  link_names: true,
+  as_user: true,
+
+};
+
+//end of updated TOC code - YK
+
+
 const initialMessage = (teamId, userId) => {
   let data = false;
   // try fetch team/user pair. This will throw an error if nothing exists in the db
@@ -118,4 +139,4 @@ const remind1 = () => {
   } catch (error) { console.error(error); }
 };
 
-module.exports = { initialMessage, accept, remind1 };
+module.exports = { initialMessage, accept, remind1, callnewmsg };
